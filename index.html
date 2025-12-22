@@ -41,12 +41,15 @@
         }
 
         .canvas {
-            margin: 0 auto;
+            width: 100vw;
+			height: 100vw;
             display: block;
         }
 
         img#logo {
-            width: 128px;
+            width: 28px;
+			max-width: 128;
+			min-width:80;
             background-size: cover;
             border-radius: 200px;
             box-shadow: 0px 0px 40px rgba(63, 81, 181, 0.72);
@@ -79,11 +82,14 @@
 
         .text {
             position: fixed;
-            bottom: 80px;
+            bottom: 10vh;
             text-align: center;
             width: 100%;
             font-weight: bold;
+			font-size: 4vw;
         }
+		@media (min-width: 768px) {
+		
 
         .text-right {
             position: fixed;
@@ -671,3 +677,4 @@
 </body>
 
 </html>
+

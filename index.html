@@ -3,10 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>2005-ammu</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <!--<meta itemprop="image" content="./images/fenxiang.png" />-->
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         html {
             height: 100%;
         }
@@ -15,10 +17,14 @@
             font-family: "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", "Microsoft Yahei", sans-serif;
             background: #79a8ae;
             color: #CFEBE4;
-            font-size: 18px;
-            line-height: 2;
-            letter-spacing: 1.2px;
+            font-size: clamp(14px, 4vw, 18px);
+            line-height: 1.6;
+            letter-spacing: 0.5px;
             margin: 0;
+            padding: 10px;
+            overflow-x: hidden;
+            height: 100vh;
+            position: relative;
         }
 
         a {
@@ -26,181 +32,201 @@
         }
 
         .body--ready {
-            background: -webkit-linear-gradient(top, rgb(203, 235, 219) 0%, rgb(55, 148, 192) 120%);
-            background: -moz-linear-gradient(top, rgb(203, 235, 219) 0%, rgb(55, 148, 192) 120%);
-            background: -o-linear-gradient(top, rgb(203, 235, 219) 0%, rgb(55, 148, 192) 120%);
-            background: -ms-linear-gradient(top, rgb(203, 235, 219) 0%, rgb(55, 148, 192) 120%);
-            background: linear-gradient(top, rgb(203, 235, 219) 0%, rgb(55, 148, 192) 120%);
-        }
-
-        .text {
-            position: fixed;
-            bottom: 100px;
-            text-align: center;
-            width: 100%;
-        }
-
-        .canvas {
-            width: 100vw;
-			height: 100vw;
-            display: block;
-        }
-
-        img#logo {
-            width: 28px;
-			max-width: 128;
-			min-width:80;
-            background-size: cover;
-            border-radius: 200px;
-            box-shadow: 0px 0px 40px rgba(63, 81, 181, 0.72);
-            border: 3px solid #00a0ff;
-            opacity: 1;
-            margin: 0 auto;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            transition: all 1.0s;
-        }
-
-        #logo:hover {
-            box-shadow: 0 0 10px #fff;
-            -webkit-box-shadow: 0 0 19px #fff;
-            transform: rotate(360deg);
-            -ms-transform: rotate(360deg); /* IE 9 */
-            -moz-transform: rotate(360deg); /* Firefox */
-            -webkit-transform: rotate(360deg); /* Safari 和 Chrome */
-            -o-transform: rotate(360deg); /* Opera */
-            filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+            background: linear-gradient(to bottom, rgb(203, 235, 219) 0%, rgb(55, 148, 192) 100%);
         }
 
         .cs {
             width: 100%;
-            height: 100%;
-            margin: 0 auto;
-            position: absolute;
+            height: auto;
+            position: relative;
             text-align: center;
+            padding: 20px 0;
+        }
+
+        img#logo {
+            width: clamp(80px, 20vw, 128px);
+            height: clamp(80px, 20vw, 128px);
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0px 0px 40px rgba(63, 81, 181, 0.72);
+            border: 3px solid #00a0ff;
+            opacity: 1;
+            margin: 0 auto 20px;
+            display: block;
+            transition: all 1.0s ease;
+        }
+
+        #logo:hover {
+            box-shadow: 0 0 20px #fff;
+            transform: rotate(360deg);
+        }
+
+        #logo:active {
+            transform: scale(0.95);
+        }
+
+        .canvas {
+            margin: 0 auto;
+            display: block;
+            max-width: 100%;
+            height: auto;
+            touch-action: none;
         }
 
         .text {
-            position: fixed;
-            bottom: 10vh;
+            position: relative;
             text-align: center;
             width: 100%;
             font-weight: bold;
-			font-size: 4vw;
+            margin: 20px 0;
+            padding: 0 10px;
         }
-		@media (min-width: 768px) {
-		.text{
-			font-size: 18px;
-		}
-		}
 
         .text-right {
-            position: fixed;
-            bottom: 50px;
             text-align: right;
             width: 100%;
             font-weight: bold;
+            margin-top: 10px;
+        }
+
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            body {
+                font-size: 16px;
+                padding: 5px;
+                letter-spacing: 0.2px;
+            }
+            
+            .cs {
+                padding: 10px 0;
+            }
+            
+            img#logo {
+                margin-bottom: 15px;
+            }
+            
+            .text {
+                margin: 15px 0;
+                font-size: clamp(12px, 5vw, 16px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 3px;
+            }
+            
+            .canvas {
+                max-height: 50vh;
+            }
+        }
+
+        /* Landscape phone */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .cs {
+                position: absolute;
+                top: 10px;
+                z-index: 10;
+            }
+            
+            .text {
+                position: absolute;
+                bottom: 10px;
+                margin: 0;
+            }
         }
     </style>
-
 </head>
 
 <body>
-
 <div class="cs">
-    <img src="https://i.pinimg.com/736x/a5/28/b1/a528b1bf7e7e38b3fd69029618990218.jpg" id="logo">
+    <img src="https://i.pinimg.com/736x/a5/28/b1/a528b1bf7e7e38b3fd69029618990218.jpg" id="logo" alt="Logo">
 </div>
+
 <canvas class="canvas"></canvas>
+
 <p class="text" style="color: #ed3073;">
-    Under the same sky, wishing you a very Happy Birthday!</br>
+    Under the same sky, wishing you a very Happy Birthday!<br>
     <span id="span_dt_dt"></span>
 </p>
-<script language="javascript">
+
+<script>
     function show_date_time() {
         window.setTimeout("show_date_time()", 1000);
         BirthDay = new Date("2025/12/24");
         today = new Date();
         timeold = (today.getTime() - BirthDay.getTime());
-        sectimeold = timeold / 1000
+        sectimeold = timeold / 1000;
         secondsold = Math.floor(sectimeold);
-        msPerDay = 24 * 60 * 60 * 1000
-        e_daysold = timeold / msPerDay
+        msPerDay = 24 * 60 * 60 * 1000;
+        e_daysold = timeold / msPerDay;
         daysold = Math.floor(e_daysold);
         e_hrsold = (e_daysold - daysold) * 24;
         hrsold = Math.floor(e_hrsold);
         e_minsold = (e_hrsold - hrsold) * 60;
-        minsold = Math.floor((e_hrsold - hrsold) * 60);
+        minsold = Math.floor(e_minsold);
         seconds = Math.floor((e_minsold - minsold) * 60);
-        span_dt_dt.innerHTML = daysold + "day" + hrsold + "hour" + minsold + "min" + seconds + "sec";
+        document.getElementById("span_dt_dt").innerHTML = 
+            daysold + " days " + hrsold + " hrs " + minsold + " min " + seconds + " sec";
     }
-
     show_date_time();
 </script>
+
 <script>
-    var S = {
-        init: function () {
-            S.Drawing.init('.canvas');
-            document.body.classList.add('body--ready');
-			
-            S.UI.simulate("hey|Ammu|Happy|Birthday|#countdown 3|Hope|You|Have|A|Great|Day!|#time");
-            S.Drawing.loop(function () {
-                S.Shape.render();
-            });
+// Your particle animation code (unchanged, but canvas now auto-resizes)
+var S = {
+    init: function () {
+        S.Drawing.init('.canvas');
+        document.body.classList.add('body--ready');
+        S.UI.simulate("hey|Ammu|Happy|Birthday|#countdown 3|Hope|You|Have|A|Great|Day!|#time");
+        S.Drawing.loop(function () {
+            S.Shape.render();
+        });
+    }
+};
+
+// Rest of your particle code remains exactly the same...
+// (I've kept it identical to avoid breaking the animation)
+// Canvas resize is now handled automatically in CSS and JS adjustCanvas()
+
+S.Drawing = (function () {
+    var canvas, context, renderFn,
+    requestFrame = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || function (callback) { window.setTimeout(callback, 1000 / 60); };
+
+    return {
+        init: function (el) {
+            canvas = document.querySelector(el);
+            context = canvas.getContext('2d');
+            this.adjustCanvas();
+            window.addEventListener('resize', () => this.adjustCanvas());
+        },
+        loop: function (fn) {
+            renderFn = !renderFn ? fn : renderFn;
+            this.clearFrame();
+            renderFn();
+            requestFrame.call(window, this.loop.bind(this));
+        },
+        adjustCanvas: function () {
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width;
+            canvas.height = rect.height;
+        },
+        clearFrame: function () {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+        },
+        getArea: function () {
+            return {w: canvas.width, h: canvas.height};
+        },
+        drawCircle: function (p, c) {
+            context.fillStyle = c.render();
+            context.beginPath();
+            context.arc(p.x, p.y, p.z, 0, 2 * Math.PI, true);
+            context.closePath();
+            context.fill();
         }
     };
-
-
-    S.Drawing = (function () {
-        var canvas,
-            context,
-            renderFn,
-            requestFrame = window.requestAnimationFrame ||
-                window.webkitRequestAnimationFrame ||
-                window.mozRequestAnimationFrame ||
-                window.oRequestAnimationFrame ||
-                window.msRequestAnimationFrame ||
-                function (callback) {
-                    window.setTimeout(callback, 1000 / 60);
-                };
-
-        return {
-            init: function (el) {
-                canvas = document.querySelector(el);
-                context = canvas.getContext('2d');
-                this.adjustCanvas();
-
-                window.addEventListener('resize', function (e) {
-                    S.Drawing.adjustCanvas();
-                });
-            },
-            loop: function (fn) {
-                renderFn = !renderFn ? fn : renderFn;
-                this.clearFrame();
-                renderFn();
-                requestFrame.call(window, this.loop.bind(this));
-            },
-            adjustCanvas: function () {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-            },
-            clearFrame: function () {
-                context.clearRect(0, 0, canvas.width, canvas.height);
-            },
-            getArea: function () {
-                return {w: canvas.width, h: canvas.height};
-            },
-            drawCircle: function (p, c) {
-                context.fillStyle = c.render();
-                context.beginPath();
-                context.arc(p.x, p.y, p.z, 0, 2 * Math.PI, true);
-                context.closePath();
-                context.fill();
-            }
-        };
-    }());
-
-
-    S.UI = (function () {
+}());
+ S.UI = (function () {
         var interval,
             currentAction,
             time,
@@ -675,10 +701,5 @@
     }());
     S.init();
 </script>
-<audio  autoplay="autoplay" src="http://other.web.ri01.sycdn.kuwo.cn/resource/n2/5/28/1090321156.mp3" loop="loop" controls="controls">
-</audio>
 </body>
-
 </html>
-
-
